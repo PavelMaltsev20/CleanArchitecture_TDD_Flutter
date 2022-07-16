@@ -7,7 +7,7 @@ import 'package:tdd_example/features/number_trivia/data/models/NumberTriviaModel
 abstract class NumberTriviaLocalDataSource {
   Future<NumberTriviaModel>? getLastNumberTrivia();
 
-  Future<void>? cacheNumberTrivia(NumberTriviaModel? numberTriviaModel);
+  Future<void>? cacheNumberTrivia(NumberTriviaModel numberTriviaModel);
 }
 
 const CACHED_NUMBER_TRIVIA = "CACHED_NUMBER_TRIVIA";
@@ -18,8 +18,11 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   NumberTriviaLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void>? cacheNumberTrivia(NumberTriviaModel? numberTriviaModel) {
-    return null;
+  Future<void> cacheNumberTrivia(NumberTriviaModel triviaToCache) {
+    return sharedPreferences.setString(
+      CACHED_NUMBER_TRIVIA,
+      json.encode(triviaToCache.toJson()),
+    );
   }
 
   @override

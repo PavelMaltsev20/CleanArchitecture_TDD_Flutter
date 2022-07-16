@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -21,7 +22,7 @@ main() {
         sharedPreferences: mockSharedPreferences);
   });
 
-  group("", () {
+  group("Get last number trivia from shared preferences", () {
     final tNumberTriviaModel =
         NumberTriviaModel.fromJson(json.decode(fixture("trivia_cached.json")));
 
@@ -44,7 +45,25 @@ main() {
 
       final call = dataSource.getLastNumberTrivia;
 
-      expect(() => call(), throwsA(TypeMatcher<CacheException>()));
+      expect(() => call(), throwsA(isInstanceOf<CacheException>()));
     });
   });
+
+  /* Todo implement this test
+    group('cacheNumberTrivia', () {
+    final tNumberTriviaModel =
+        NumberTriviaModel(number: 1, text: 'test trivia');
+
+    test('should call SharedPreferences to cache the data', () {
+      // act
+      dataSource.cacheNumberTrivia(tNumberTriviaModel);
+      // assert
+      final expectedJsonString = json.encode(tNumberTriviaModel.toJson());
+      verify(mockSharedPreferences.setString(
+        CACHED_NUMBER_TRIVIA,
+        expectedJsonString,
+      ));
+    });
+
+   */
 }

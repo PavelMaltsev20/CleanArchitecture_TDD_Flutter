@@ -42,7 +42,7 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
       try {
         NumberTriviaModel? remoteTrivia =
             await chooser();
-        localDataSource.cacheNumberTrivia(remoteTrivia);
+        localDataSource.cacheNumberTrivia(remoteTrivia!);
         return Right(remoteTrivia);
       } on ServerException {
         return Left(ServerFailure());
